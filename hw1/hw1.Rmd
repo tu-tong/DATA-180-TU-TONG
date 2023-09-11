@@ -19,7 +19,7 @@ Make sure that you have accepted the hw invitation link, and working with your c
 Make sure to insert a chunk for each (sub)section of the assignment.
 
 ## Preliminary Task
-Go to [datacamp.com](https://datacamp.com) and complete the tutorial "Introduction to R".
+Go to [datacamp.com](https://datacamp.com) and complete the tutorial "Introduction to R"..
 
 
 ## Task 1
