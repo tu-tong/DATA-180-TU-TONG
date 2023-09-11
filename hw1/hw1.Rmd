@@ -16,7 +16,7 @@ Make sure that you have accepted the hw invitation link, and working with your c
 ```{r}
 # Your code goes here
 ```
-Make sure to insert a chunk for each (sub)section of the assignment.
+Make sure to insert a chunk for each (sub)section of the assignment..
 
 ## Preliminary Task
 Go to [datacamp.com](https://datacamp.com) and complete the tutorial "Introduction to R".
