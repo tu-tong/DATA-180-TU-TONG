@@ -71,7 +71,7 @@ my_vec
 b) Replace the second element in `my_vec` with the number `99`.
 
 ```{r}
-my_vec[2] <- "99"
+my_vec[2] <- 99
 my_vec
 ```
 c) Write a function called `my_func` that prints `This element is greater than 5!` if an element in `myvec` is greater than 5, and `This element is NOT greater than 5!` otherwise.
@@ -81,6 +81,7 @@ my_func <- function(my_vec){
   ifelse(my_vec>5, "This element is greater than 5!", "This element is NOT greater than 5!")
 }
 my_func(my_vec[1])
+my_func(my_vec[2])
 ```
 ## Task 3
 a. Write a function named `get_fibonacci` that returns the n'th value in the [fibonacci sequence](https://www.mathsisfun.com/numbers/fibonacci-sequence.html). For example, `get_fibonacci(5)` should return 3; `get_fibonacci(7)` should return 8 and so on. ***Hint:** It is possible to call the same function from inside it. E.g., you can call `get_fibonacci()` from inside `get_fibonacci()`. Like inception!*
