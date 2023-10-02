@@ -2,8 +2,8 @@
 title: "HW 3: Visualization, Ggplot2 & Maps"
 subtitle: "Data 180, Professor Kennedy"
 author: 
-  name: "XXXX"
-  email: "XXXX@dickinson.edu"
+  name: "Tu Tong"
+  email: "tongtu@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`' # no need to change date since this line grabs today's date
 output: 
   html_document
@@ -40,6 +40,12 @@ Create a simple scatterplot using ggplot2 where x axis shows `EngineSize`, y axi
 
  
 ```{r}
+ggplot(Cars93, aes(EngineSize, MPG.city)) +
+  geom_point(col ="blue", size = 2) +
+  xlim(1,6.5) +
+  ylim(10, 50) +
+  labs(x="Engine size", y = "City MPG", title = "City MPG vs Engine size", subtitle = "miles per gallon vs litres", caption = "based on the Cars93 dataset")
+  
 
 ```
 
@@ -48,7 +54,11 @@ Recreate the scatterplot in Task 1. Add the following functionality:
 
 * Use a different color for each car `Type`.
 ```{r}
-
+ggplot(Cars93, aes(EngineSize, MPG.city, color = Type)) +
+  geom_point(size = 2) +
+  xlim(1, 6.5) +
+  ylim(10, 50) +
+  labs(x = "Engine size", y = "City MPG", title = "City MPG vs Engine size for all types of car", subtitle = "Miles per gallon vs litres", caption = "based on Cars93 dataset")
 ```
 
 ## Task 3
@@ -58,7 +68,12 @@ Recreate the scatterplot in Task 2. Add the following functionality:
 * Make the curve line red, and dashed. (Hint linetype is the option you can use to set line style as 'dashed')
 
 ```{r}
-
+ggplot(Cars93, aes(EngineSize, MPG.city, color = Type)) +
+  geom_point(size = 2) +
+  xlim(1, 6.5) +
+  ylim(10, 50) +
+  labs(x = "Engine size", y = "City MPG", title = "City MPG vs Engine size for all types of car", subtitle = "Miles per gallon vs litres", caption = "based on Cars93 dataset") +
+  geom_smooth(color = "red", linetype = "dashed")
 ```
 
 ## Task 4
@@ -69,7 +84,8 @@ Create a barplot showing count of cars by `AirBags` using ggplot2.
 * Add a title, subtitle, x axis label, y axis label, and a caption using title, subtitle, caption options inside `+ labs()`.
 
 ```{r}
-
+ggplot(Cars93, aes(AirBags)) +
+  geom_bar()
 ```
 
 ## Task 5
