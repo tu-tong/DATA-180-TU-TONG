@@ -1,12 +1,13 @@
 ---
-title: "HW 3: Visualization, Ggplot2 & Maps"
-subtitle: "Data 180, Professor Kennedy"
-author: 
-  name: "Tu Tong"
-  email: "tongtu@dickinson.edu"
-date: '`r format(Sys.Date(), "%B %d, %Y")`' # no need to change date since this line grabs today's date
-output: 
-  html_document
+title: 'HW 3: Visualization, Ggplot2 & Maps'
+author:
+  name: Tu Tong
+  email: tongtu@dickinson.edu
+date: "`r format(Sys.Date(), "%B %d, %Y")`"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: Data 180, Professor Kennedy
 ---
 
 Make sure that you have accepted the hw invitation link, and working with your clone repository.
@@ -170,7 +171,7 @@ ggplot() +
 Lastly, let's display the same map using `mapview()`. Load the `mapview` package.
 
 ```{r}
-#install.packages('mapview') # interactive display
+install.packages('mapview') # interactive display
 library(mapview)
 ```
 Create an interactive map of Australia using `mapview()`
@@ -183,7 +184,6 @@ mapview(au_states)
 Let's display the capitals on the map like before. First convert the `au_capitals` dataframe to spatial dataframe object by running:
 ```{r}
 capitals_geo <- st_as_sf(au_capitals, coords = c("lon", "lat"))
-capitals_geo
 ```
 
 Now add the new spatial capitals object via + (that is, you can use the following syntax to add a layer: `mapview() + mapview()`)
@@ -191,7 +191,8 @@ Now add the new spatial capitals object via + (that is, you can use the followin
 * You can use the option `col.regions='red'` to make capitals appear in color red, and `legend=F` in second `mapview()` to remove the uninformative second set of legend. 
 
 ```{r}
-
+mapview(au_states) + 
+  mapview(capitals_geo, col.region = 'red', legend = FALSE )
 ```
 
 
