@@ -3,7 +3,7 @@ title: 'HW 3: Visualization, Ggplot2 & Maps'
 author:
   name: Tu Tong
   email: tongtu@dickinson.edu
-date: "`r format(Sys.Date(), "%B %d, %Y")`"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document: default
   pdf_document: default
@@ -41,10 +41,17 @@ Create a simple scatterplot using ggplot2 where x axis shows `EngineSize`, y axi
 
  
 ```{r}
+#find x, y limits 
+min(Cars93$EngineSize)
+max(Cars93$EngineSize)
+min(Cars93$MPG.city)
+max(Cars93$MPG.city)
+
+max(Cars93$MPG.city)
 ggplot(Cars93, aes(EngineSize, MPG.city)) +
   geom_point(col ="blue", size = 2) +
-  xlim(1,6.5) +
-  ylim(10, 50) +
+  xlim(1,5.7) +
+  ylim(15, 46) +
   labs(x="Engine size", y = "City MPG", title = "City MPG vs Engine size", subtitle = "miles per gallon vs litres", caption = "based on the Cars93 dataset")
   
 
@@ -57,8 +64,8 @@ Recreate the scatterplot in Task 1. Add the following functionality:
 ```{r}
 ggplot(Cars93, aes(EngineSize, MPG.city, color = Type)) +
   geom_point(size = 2) +
-  xlim(1, 6.5) +
-  ylim(10, 50) +
+  xlim(1, 5.7) +
+  ylim(15, 46) +
   labs(x = "Engine size", y = "City MPG", title = "City MPG vs Engine size for all types of car", subtitle = "Miles per gallon vs litres", caption = "based on Cars93 dataset")
 ```
 
@@ -71,8 +78,8 @@ Recreate the scatterplot in Task 2. Add the following functionality:
 ```{r}
 ggplot(Cars93, aes(EngineSize, MPG.city, color = Type)) +
   geom_point(size = 2) +
-  xlim(1, 6.5) +
-  ylim(10, 50) +
+  xlim(1, 5.7) +
+  ylim(15, 46) +
   labs(x = "Engine size", y = "City MPG", title = "City MPG vs Engine size for all types of car", subtitle = "Miles per gallon vs litres", caption = "based on Cars93 dataset") +
   geom_smooth(color = "red", linetype = "dashed")
 ```
@@ -87,7 +94,7 @@ Create a barplot showing count of cars by `AirBags` using ggplot2.
 ```{r}
 ggplot(Cars93, aes(AirBags)) +
   geom_bar(fill = c("darkviolet", "chocolate1", "darkolivegreen4")) +
-  labs(title= "Number of airbags", subtitle = "airbags standard", x = "Factor", y = "Count", caption = "based on Cars93 dataset")
+  labs(title= "Number of airbags", subtitle = "airbags standard", x = "Availability", y = "Count", caption = "based on Cars93 dataset")
 ```
 
 ## Task 5
@@ -107,8 +114,8 @@ ggplot(Cars93, aes(x = Origin, fill = AirBags)) +
 Load Australia's state map data via running:
 ```{r}
 # install the packages below by uncommenting the lines. You need to do this only once.
-install.packages('ozmaps') # downloads the map needed
-install.packages('sf') # package used to analyze spatial data
+#install.packages("ozmaps") # downloads the map needed
+#install.packages("sf") # package used to analyze spatial data
 library(ozmaps)
 library(sf)
 au_states <- ozmaps::ozmap_states # read in spatial dataframe object
@@ -171,7 +178,7 @@ ggplot() +
 Lastly, let's display the same map using `mapview()`. Load the `mapview` package.
 
 ```{r}
-install.packages('mapview') # interactive display
+#install.packages('mapview') # interactive display
 library(mapview)
 ```
 Create an interactive map of Australia using `mapview()`
