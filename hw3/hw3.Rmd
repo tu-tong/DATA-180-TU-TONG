@@ -9,6 +9,7 @@ output:
   pdf_document: default
 subtitle: Data 180, Professor Kennedy
 ---
+20/20. Good job.
 
 Make sure that you have accepted the hw invitation link, and working with your clone repository.
 
