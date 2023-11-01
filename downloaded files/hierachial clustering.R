@@ -40,3 +40,10 @@ plot(Cluster_Ex_HC,cex=1.25,xlab="")
 
 
 plot(Cluster_Ex,hang=-1,main="Main",sub="Sub",lwd=2,cex=.8,xlab="",frame.plot=T)
+install(ggdendro)
+library(ggdendro)
+
+data("USArrests")
+dd <- dist(scale(USArrests), method = "euclidean")
+hc <- hclust(dd)
+ggdendrogram(hc)
