@@ -33,5 +33,8 @@ apply(Data_M,2,sd)
 rng<-apply(Data_M,2,max)-apply(Data_M,2,min)
 rng
 
-scale(Data_M, center = F, scale=rng)
+scale(Data_M, center = F, scale=rng) #take the value and divide it by the range calculated on line 33 
+
+install.packages("planets")
+library(planets)
 
