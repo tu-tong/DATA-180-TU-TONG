@@ -50,7 +50,7 @@ head(negWords,15)
 
 # Question 1
 First, check how many years of news data we have loaded in in R.
-
+19 years
 ```{r}
 library(dplyr)
 n_distinct(news$year)
