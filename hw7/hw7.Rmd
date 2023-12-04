@@ -1,13 +1,14 @@
 ---
 title: "HW 7"
-subtitle: "Data 180, Professor Kennedy"
-author: 
-  name: "Tu Tong"
-  email: "tongtu@dickinson.edu"
-date: '`r format(Sys.Date(), "%B %d, %Y")`'
-output: 
-  html_document
-editor_options: 
+author:
+  name: Tu Tong.
+  email: tongtu@dickinson.edu
+date: "`r format(Sys.Date(), "%B %d, %Y")`"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: Data 180, Professor Kennedy
+editor_options:
   chunk_output_type: console
 ---
 
@@ -158,9 +159,7 @@ ggplot(news, aes(x=factor(yearmonth, levels=unique(yearmonth)))) +
 Let's now practice working with `quanteda` and `corpus` packages. Install the packages first if you don't have them in your computer and load them in in R.
 
 ```{r}
-install.packages(corpus)
 library("quanteda")
-library("corpus")
 ```
 
 # Question 10
@@ -184,7 +183,6 @@ tokenize_ngrams(charVector, n=2)
 
 library(ngram)
 words <- paste(unlist(charVector), collapse = " ")
-
 ng <- ngram(words, n=2)
 head(get.phrasetable(ng), 20)
 
@@ -208,8 +206,8 @@ head(colnames(news_dtm), 6)
 
 # Question 14
 Create a wordcloud of `news_dtm` using `textplot_wordcloud()`. Comment on words that you were surprised and not surprised to see in the news headlines dataset.
-Surprised:
-No surprised:
+-Surprised: nsw, wa, pm
+-No surprised: sex, govern, coronavirus
 ```{r}
 library("quanteda.textplots")
 textplot_wordcloud(news_dtm,adjust=.6)
@@ -235,6 +233,7 @@ terms(topic_model,10)
 
 # Question 15
 Plot betas of top 10 words with highest beta for each 8 topic. Comment on 3-4 news headline groups in terms of their topic content.
+
 ```{r}
 tidy_topics <- tidy(topic_model, matrix = "beta")
 tidy_topics
@@ -255,28 +254,40 @@ news_top_topics %>%
 
 # Question 16
 Plot gammas of top 5 documents with highest gamma for each 8 topic. Return the contents of the 5 documents with highest gamma only for topics 1 and 2. Does it makes sense that these documents are assigned to topics 1 and 2 accordingly? Comment.
+It makes sense because the topics match the documents.
+
 ```{r}
 tidy_topics2 <- tidy(topic_model, matrix = "gamma")
 tidy_topics2
 
-tidy_topics2 <- tidy_topics2 %>% 
-  mutate(topicname = ifelse(topic==1, '1: glory,homeland',ifelse(topic==2,'2: god,nation',ifelse(topic==3,'3: land,love',ifelse(topic==4,'4: us,one',ifelse(topic==5,'5: may,eternal','.'))))))
-
 top_topics <- tidy_topics2 %>%
-  group_by(topicname) %>%
-  slice_max(gamma, n = 10) %>% 
+  group_by(topic) %>%
+  slice_max(gamma, n = 5) %>% 
   ungroup() %>%
   arrange(document, -gamma)
 
 top_topics %>%
-  mutate(document = reorder_within(document, gamma, topicname)) %>%
-  ggplot(aes(gamma, document, fill = factor(topicname))) +
+  mutate(document = reorder_within(document, gamma, topic)) %>%
+  ggplot(aes(gamma, document, fill = factor(topic))) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~topicname, scales = "free") +
+  facet_wrap(~topic, scales = "free") +
   scale_y_reordered() # takes care of labels
+```
 
-tidy_topics2 %>% filter(document=='text129')
+```{r}
+mydf <- data.frame(as.matrix(news_topics))
+mydf$id <- rownames(mydf)
+topic1 <- mydf %>% filter(id == "text408" | id == "text6370" | id == "text8621" | id == "text1074" | id =="text7674")
+topic2 <- mydf %>% filter(id == "text8949" | id == "text4894" | id == "text1367" | id == "text4494" | id =="text4902")
 
+topic1 <- subset(topic1, select = -id)
+topic2 <-subset(topic2, select = -id)
+
+topic1 <- data.frame(t(topic1))
+topic2 <- data.frame(t(topic2))
+
+topic1[rowSums(topic1>0),]
+topic2[rowSums(topic2>0),]
 ```
 
 
