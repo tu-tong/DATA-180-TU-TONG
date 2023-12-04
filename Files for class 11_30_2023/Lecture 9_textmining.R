@@ -2,8 +2,9 @@
 #############
 # Text Mining
 # nomination speech
+R.version.string
 
-setwd(" ") # Set this to your local GitHub repository.
+setwd("/Users/tu/Desktop/DATA180-Tu/Files for class 11_30_2023") # Set this to your local GitHub repository.
 
 library(tm) # text mining package
 
@@ -47,7 +48,7 @@ stop_words
 # Why do we specify "english" as a parameter of the stopwords function?
 
 wordCorpus[["1"]][["content"]] # Review what's left of the first paragraph
-# wordVector[1] # to compare
+wordVector[1] # to compare
 # wordCorpus$content to see its content
 
 # create a term-document matrix "tdm"
@@ -117,7 +118,7 @@ sum(matchedN)/totalWords
 # very handy to subset further down to verb, noun..
 # helps get around the perplexity problem.
 
-#install.packages("spacyr") # should only need to do this once.
+install.packages("spacyr") # should only need to do this once.
 library("spacyr")
 spacy_install()
 #if things give error, or get stuck, try
@@ -223,6 +224,7 @@ sum(matchedN)/totalWords # 5% negative words
 ######################################################
 
 library("quanteda") # Put the package in memory
+install.packages(corpus)
 library("corpus")
 # let's use corpus package, alternative to tm package
 term_stats(charVector, ngrams = 1) # get term stats, for single word. Can change ngrams.
