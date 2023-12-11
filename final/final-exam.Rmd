@@ -1,0 +1,68 @@
+---
+title: "final-exam"
+author: "Tu Tong"
+date: "2023-12-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+#read csv file and libraries
+dataset <- "/Users/tu/Desktop/DATA180-Tu/final/loan_default_data_set.csv"
+loan_df <- read.csv(dataset) 
+loan_df
+library(tidyverse)
+```
+
+## 1.Data Wrangling
+
+a) The dimension: 20000x21
+- The data set has 20000 rows and 21 columns
+
+b) Column names are:"tot_balance", "avg_bal_cards", "credit_age", "credit_age_good_account" , "credit_card_age", "num_acc_30d_past_due_12_months", "num_acc_30d_past_due_6_months", "num_mortgage_currently_past_due", "tot_amount_currently_past_due", "num_inq_12_month", "num_card_inq_24_month", "num_card_12_month",   "num_auto_.36_month", "uti_open_card", "pct_over_50_uti", "uti_max_credit_line", "pct_card_over_50_uti", "ind_XYZ", "rep_income", "rep_education", "Def_ind"
+
+c) Types of data in the data set: numeric, integer, and character.
+
+```{r}
+dim(loan_df)
+columns <- colnames(loan_df)
+lapply(loan_df, class)
+```
+
+d) Column that have missing values: rep_income
+rep_income is missing 7.795% values.
+```{r}
+numNa <- colSums(is.na(loan_df))
+
+nVal_rep_income <- nrow(loan_df)
+nVal_rep_income
+(1559/20000)*100
+```
+
+e) We should deal with missing values by 
+
+f) With this data, I would fit a supervised/unsupervised learning model. Whhy?
+
+g) Drop all rows with missing values, print dim()
+```{r}
+new_loan_df <- drop_na(loan_df)
+new_loan_df
+dim(new_loan_df)
+```
+
+## 2. Data summary statistics
+
+```{r}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
