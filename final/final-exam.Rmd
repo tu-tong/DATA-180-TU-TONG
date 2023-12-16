@@ -46,7 +46,7 @@ columns <- colnames(loan_df)
 lapply(loan_df, class)
 ```
 
-d) Column that have missing values: rep_income
+d) Columns that have missing values: rep_income, pct_card_over_50_uti
 rep_income is missing 7.795% values.
 pct_card_over_50_uti is missing 9.790% values.
 ```{r}
@@ -59,7 +59,7 @@ naStat
 
 e) We should deal with missing values by removing the rows or columns that contain the missing values or substitute missing values with other values (such as sample mean). However, there is no best way to approach.
 
-f) With this data, I would fit a supervised learning model. Because there is one response variable to all the predictor in the data set 
+f) With this data, I would fit a supervised learning model. Because there is one response variable to all the predictor variables in the data set.
 
 g) Drop all rows with missing values, print dim()
 Dimension of new data set is 16653 x 21 (16653 rows, 21 columns)
@@ -78,8 +78,8 @@ summary(new_loan_df)
 #summary(new_loan_df$tot_amount_currently_past_due)
 ```
 
-b) "num_card_inq_24_month" and "tot_amount_currently_past_due" are both right skewed because mean > median.
-"credit_age" is bell-shaped because the median is approximately equal to the mean
+b) "num_card_inq_24_month" and "tot_amount_currently_past_due" are both right-skewed because mean > median.
+"credit_age" is bell-shaped because the median is approximately equal to the mean.
 
 c) The shapes confirm my answer above.
 ```{r}
@@ -92,15 +92,15 @@ ggplot(new_loan_df, aes(x=credit_age)) +
 ```
 
 d) Two ways to convert "rep_education" (categorical) to numerical data:
-- Covert each category to a specific number. For example, 'highschool' to 0, 'college' to 1, and 'graduate' to 2.
-- Count the existence of each category, so each category is now displayed as a row. For instance, the value of that row will be 1 if the categorical value matches with the row.
+- Convert each category to a specific number. For example, 'highschool' to 0, 'college' to 1, and 'graduate' to 2.
+- Convert by using the matrix of 0 and 1 (binary). Count the existence of each category, so each category is now displayed as a row. For instance, the value of that row will be 1 if the categorical value matches with the row.
 
 ## Data Visualization
 
 a) Bar plot for 'Def_ind'
-The graph has 2 values 0 and 1 on the x-axis, the y-axis shows the frequency of each x-value appear in the data set.
+The graph has 2 values 0 (indicating not defaulted account) and 1 (defaulted account) on the x-axis, the y-axis shows the frequency of each x-value appear in the data set. There are more undefaulted account than defaulted one.
 ```{r}
-ggplot(new_loan_df, aes(x=Def_ind))+
+ggplot(new_loan_df, aes(factor(x=Def_ind)))+
   geom_bar(fill = "darkolivegreen4")+
   xlab("Indicator of Default")+
   ylab("Number of accounts")+
@@ -109,7 +109,7 @@ ggplot(new_loan_df, aes(x=Def_ind))+
 ```
 
 b) Bar plot for 'rep_education'
-The graph 
+Describe the graph: The x-axis shows the levels of education, and the y-axis shows number of applicants of each level accordingly. Applicants who is in college have the highest population among all.
 ```{r}
 ggplot(new_loan_df, aes(x=rep_education))+
   geom_bar(fill = "chocolate1")+
@@ -119,21 +119,32 @@ ggplot(new_loan_df, aes(x=rep_education))+
 ```
 
 c) Histogram for 'rep_income'
-The graph looks like a bell-shaped curve.
+
 ```{r}
 ggplot(new_loan_df, aes(x=rep_income))+
   geom_histogram(fill = "darksalmon")+
   xlab("Income range")+
   ylab("Number of applicants")+
-  labs(title = "Distribution of income of applicants")
+  labs(title = "Distribution of income of applicants")+
+  scale_x_continuous(labels = scales::comma)
 ```
 
 d) Boxplot for 'tot_balance'
+
+There are outliers in the data set, as printed out in the console.
+
 ```{r}
 ggplot(new_loan_df, aes(x=tot_balance))+
   geom_boxplot()+
   xlab("Total available balance")+
   labs(title = "Distribution of total available balance for all credit products")
-fivenum(new_loan_df$tot_balance)
+
+#summary
+summary(new_loan_df$tot_balance) 
+
+#find outliers
+outliers <- boxplot.stats(new_loan_df$tot_balance)$out
+print(outliers)
+
 ```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
