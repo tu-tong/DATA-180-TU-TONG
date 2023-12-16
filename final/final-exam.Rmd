@@ -59,7 +59,7 @@ naStat
 
 e) We should deal with missing values by removing the rows or columns that contain the missing values or substitute missing values with other values (such as sample mean). However, there is no best way to approach.
 
-f) With this data, I would fit a supervised learning model. Because there is one response variable to all the predictor variables in the data set.
+f) With this data, I would fit a supervised learning model because there is one response variable to 20 predictor variables in the data set. The supervised model would fit the goal to use all applicants' information (predictor variables) to make prediction on whether this applicant should be lent money or not (response variable).
 
 g) Drop all rows with missing values, print dim()
 Dimension of new data set is 16653 x 21 (16653 rows, 21 columns)
@@ -93,7 +93,7 @@ ggplot(new_loan_df, aes(x=credit_age)) +
 
 d) Two ways to convert "rep_education" (categorical) to numerical data:
 - Convert each category to a specific number. For example, 'highschool' to 0, 'college' to 1, and 'graduate' to 2.
-- Convert by using the matrix of 0 and 1 (binary). Count the existence of each category, so each category is now displayed as a row. For instance, the value of that row will be 1 if the categorical value matches with the row.
+- Convert by using the matrix of 0 and 1 (binary). Count the existence of each category, so each category is now displayed as a row. For instance, the value of that row will be 1 if the categorical value matches with the row and 0 if they are not matched.
 
 ## Data Visualization
 
