@@ -57,7 +57,7 @@ naStat <- (colNa/nrow(loan_df))*100
 naStat
 ```
 
-e) We should deal with missing values by removing the rows or columns that contain the missing values or substitute missing values with other values (such as sample mean). However, there is no best way to approach.
+e) We should deal with missing values by removing the rows or columns that contain the missing values or substituting missing values with other values (such as sample mean). However, there is no best way to approach.
 
 f) With this data, I would fit a supervised learning model because there is one response variable to 20 predictor variables in the data set. The supervised model would fit the goal to use all applicants' information (predictor variables) to make prediction on whether this applicant should be lent money or not (response variable).
 
