@@ -1,8 +1,12 @@
 ---
-title: "final-exam"
-author: "Tu Tong"
-date: "2023-12-09"
-output: html_document
+title: "Final exam"
+subtitle: "Data 180, Professor Kennedy"
+author: 
+  name: "Tu Tong"
+  email: "tongtu@dickinson.edu"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: 
+  html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -16,11 +20,15 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r}
-#read csv file and libraries
+#read csv file
 dataset <- "/Users/tu/Desktop/DATA180-Tu/final/loan_default_data_set.csv"
 loan_df <- read.csv(dataset) 
 loan_df
+#load libraries
 library(tidyverse)
+library(dplyr)
+library(DescTools)
+library(ggplot2)
 ```
 
 ## 1.Data Wrangling
@@ -40,19 +48,21 @@ lapply(loan_df, class)
 
 d) Column that have missing values: rep_income
 rep_income is missing 7.795% values.
+pct_card_over_50_uti is missing 9.790% values.
 ```{r}
 numNa <- colSums(is.na(loan_df))
-
-nVal_rep_income <- nrow(loan_df)
-nVal_rep_income
-(1559/20000)*100
+colNa <- subset(numNa, numNa > 0)
+colNa
+naStat <- (colNa/nrow(loan_df))*100
+naStat
 ```
 
-e) We should deal with missing values by 
+e) We should deal with missing values by removing the rows or columns that contain the missing values or substitute missing values with other values (such as sample mean). However, there is no best way to approach.
 
-f) With this data, I would fit a supervised/unsupervised learning model. Whhy?
+f) With this data, I would fit a supervised learning model. Because there is one response variable to all the predictor in the data set 
 
 g) Drop all rows with missing values, print dim()
+Dimension of new data set is 16653 x 21 (16653 rows, 21 columns)
 ```{r}
 new_loan_df <- drop_na(loan_df)
 new_loan_df
@@ -61,8 +71,69 @@ dim(new_loan_df)
 
 ## 2. Data summary statistics
 
+a)
 ```{r}
-
+summary(new_loan_df)
+#summary(new_loan_df$num_card_inq_24_month)
+#summary(new_loan_df$tot_amount_currently_past_due)
 ```
 
+b) "num_card_inq_24_month" and "tot_amount_currently_past_due" are both right skewed because mean > median.
+"credit_age" is bell-shaped because the median is approximately equal to the mean
+
+c) The shapes confirm my answer above.
+```{r}
+ggplot(new_loan_df, aes(x=num_card_inq_24_month)) +
+  geom_histogram(fill = "darkcyan")
+ggplot(new_loan_df, aes(x=tot_amount_currently_past_due)) +
+  geom_histogram(fill = "darkslategrey")
+ggplot(new_loan_df, aes(x=credit_age)) +
+  geom_histogram(fill = "chocolate3")
+```
+
+d) Two ways to convert "rep_education" (categorical) to numerical data:
+- Covert each category to a specific number. For example, 'highschool' to 0, 'college' to 1, and 'graduate' to 2.
+- Count the existence of each category, so each category is now displayed as a row. For instance, the value of that row will be 1 if the categorical value matches with the row.
+
+## Data Visualization
+
+a) Bar plot for 'Def_ind'
+The graph has 2 values 0 and 1 on the x-axis, the y-axis shows the frequency of each x-value appear in the data set.
+```{r}
+ggplot(new_loan_df, aes(x=Def_ind))+
+  geom_bar(fill = "darkolivegreen4")+
+  xlab("Indicator of Default")+
+  ylab("Number of accounts")+
+  labs(caption = "0 = not defaulted, 1 = account defaulted", title = "Number of accounts based on the indicator of default")
+  
+```
+
+b) Bar plot for 'rep_education'
+The graph 
+```{r}
+ggplot(new_loan_df, aes(x=rep_education))+
+  geom_bar(fill = "chocolate1")+
+  xlab("Levels of education")+
+  ylab("Number of applicants")+
+  labs(title="Number of applicants of each education level")
+```
+
+c) Histogram for 'rep_income'
+The graph looks like a bell-shaped curve.
+```{r}
+ggplot(new_loan_df, aes(x=rep_income))+
+  geom_histogram(fill = "darksalmon")+
+  xlab("Income range")+
+  ylab("Number of applicants")+
+  labs(title = "Distribution of income of applicants")
+```
+
+d) Boxplot for 'tot_balance'
+```{r}
+ggplot(new_loan_df, aes(x=tot_balance))+
+  geom_boxplot()+
+  xlab("Total available balance")+
+  labs(title = "Distribution of total available balance for all credit products")
+fivenum(new_loan_df$tot_balance)
+```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
