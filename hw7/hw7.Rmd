@@ -11,7 +11,7 @@ subtitle: Data 180, Professor Kennedy
 editor_options:
   chunk_output_type: console
 ---
-
+20/20. Good job Tu. 
 **Due date:** December 4 beginning of class.
 
 
@@ -32,7 +32,7 @@ In this homework, we will analyze news headlines data scraped from abcnews, post
 Read the `news.csv` into R and create the object `news` using
 
 ```{r}
-setwd("/Users/tu/Desktop/DATA180-Tu/hw7")
+#setwd("/Users/tu/Desktop/DATA180-Tu/hw7")
 #library(tidyverse)
 library(tm)
 news<-read.csv("news.csv",header=T)
