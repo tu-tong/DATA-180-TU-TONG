@@ -8,7 +8,7 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
 ---
-
+40/40. Good job. 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -21,13 +21,13 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r}
 #read csv file
-dataset <- "/Users/tu/Desktop/DATA180-Tu/final/loan_default_data_set.csv"
+dataset <- "loan_default_data_set.csv"
 loan_df <- read.csv(dataset) 
 loan_df
 #load libraries
-library(tidyverse)
+#library(tidyverse)
 library(dplyr)
-library(DescTools)
+#library(DescTools)
 library(ggplot2)
 ```
 
@@ -64,7 +64,7 @@ f) With this data, I would fit a supervised learning model because there is one 
 g) Drop all rows with missing values, print dim()
 Dimension of new data set is 16653 x 21 (16653 rows, 21 columns)
 ```{r}
-new_loan_df <- drop_na(loan_df)
+new_loan_df <- na.omit(loan_df)
 new_loan_df
 dim(new_loan_df)
 ```
